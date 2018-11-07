@@ -6,6 +6,8 @@ import uuid from 'uuid'
 import Box from './Box'
 import Controls from './Controls'
 
+const Posebox = posed.div({})
+
 const colors = 'paleturquoise,aquamarine,turquoise,lightseagreen'.split(',')
 
 function createBoxes() {
@@ -24,8 +26,6 @@ const shuffle = arry => {
   })
   return arry
 }
-
-const Posebox = posed.div({})
 
 class App extends Component {
   state = {
