@@ -20,15 +20,21 @@ class App extends Component {
     filtered: []
   }
 
-  componentDidMount() {
-    const initArrays = createBoxes()
-    this.setState({ boxes: initArrays, filtered: initArrays })
+  deleteBox = id => {
+    this.setState(({ filtered }) => ({
+      filtered: filtered.filter(box => box.id !== id)
+    }))
   }
 
   resetColors = () => this.setState({ filtered: this.state.boxes })
 
   filterBy = color => {
     this.setState(({ boxes }) => ({ filtered: boxes.filter(box => box.color === color) }))
+  }
+
+  componentDidMount() {
+    const initArrays = createBoxes()
+    this.setState({ boxes: initArrays, filtered: initArrays })
   }
 
   render() {
@@ -38,7 +44,7 @@ class App extends Component {
         <div className="container">
           <div className="boxes-wrapper">
             {this.state.filtered.map(({ id, color }) => (
-              <Box key={id} color={color} id={id} />
+              <Box key={id} color={color} id={id} deleteBox={this.deleteBox} />
             ))}
           </div>
         </div>
