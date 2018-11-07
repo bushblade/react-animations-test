@@ -34,6 +34,7 @@ class Controls extends Component {
 
   render() {
     const { handleReset, handleColorClick } = this
+    const { shuffleBoxes } = this.props
     return (
       <header className="controls">
         <h2>Filter boxes by colour</h2>
@@ -48,6 +49,9 @@ class Controls extends Component {
         <div className="reset">
           <button className={`btn ${this.state.all ? 'selected' : ''}`} onClick={handleReset}>
             all colors
+          </button>
+          <button className="btn" onClick={shuffleBoxes}>
+            Shuffle
           </button>
         </div>
       </header>

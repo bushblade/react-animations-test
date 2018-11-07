@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import posed, { PoseGroup } from 'react-pose'
 import './App.css'
 import uuid from 'uuid'
 
@@ -12,6 +13,16 @@ function createBoxes() {
   return Array(40)
     .fill(0)
     .map((x, i) => ({ id: uuid(), color: colors[rndIndx(colors.length)] }))
+}
+
+const shuffle = arry => {
+  arry.forEach((x, i) => {
+    let rnd = Math.floor(Math.random() * arry.length),
+      temp = arry[i]
+    arry[i] = arry[rnd]
+    arry[rnd] = temp
+  })
+  return arry
 }
 
 class App extends Component {
@@ -32,20 +43,34 @@ class App extends Component {
     this.setState(({ boxes }) => ({ filtered: boxes.filter(box => box.color === color) }))
   }
 
+  shuffleBoxes = () => {
+    this.setState(({ filtered }) => ({ filtered: shuffle(filtered) }))
+  }
+
   componentDidMount() {
     const initArrays = createBoxes()
     this.setState({ boxes: initArrays, filtered: initArrays })
   }
 
   render() {
+    const PoseBox = posed.div({})
     return (
       <div className="App">
-        <Controls colors={colors} filter={this.filterBy} reset={this.resetColors} />
+        <Controls
+          colors={colors}
+          filter={this.filterBy}
+          reset={this.resetColors}
+          shuffleBoxes={this.shuffleBoxes}
+        />
         <div className="container">
           <div className="boxes-wrapper">
-            {this.state.filtered.map(({ id, color }) => (
-              <Box key={id} color={color} id={id} deleteBox={this.deleteBox} />
-            ))}
+            <PoseGroup>
+              {this.state.filtered.map(({ id, color }) => (
+                <PoseBox key={id}>
+                  <Box color={color} id={id} deleteBox={this.deleteBox} />
+                </PoseBox>
+              ))}
+            </PoseGroup>
           </div>
         </div>
       </div>
