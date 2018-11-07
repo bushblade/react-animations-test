@@ -25,6 +25,8 @@ const shuffle = arry => {
   return arry
 }
 
+const Posebox = posed.div({})
+
 class App extends Component {
   state = {
     boxes: [],
@@ -53,11 +55,9 @@ class App extends Component {
   }
 
   render() {
-    const PoseBox = posed.div({})
     return (
       <div className="App">
         <Controls
-          colors={colors}
           filter={this.filterBy}
           reset={this.resetColors}
           shuffleBoxes={this.shuffleBoxes}
@@ -66,9 +66,9 @@ class App extends Component {
           <div className="boxes-wrapper">
             <PoseGroup>
               {this.state.filtered.map(({ id, color }) => (
-                <PoseBox key={id}>
+                <Posebox key={id} className="box-container">
                   <Box color={color} id={id} deleteBox={this.deleteBox} />
-                </PoseBox>
+                </Posebox>
               ))}
             </PoseGroup>
           </div>
