@@ -6,6 +6,11 @@ const Btn = posed.button({
   hidden: { opacity: 0 }
 })
 
+const Heading = posed.h2({
+  visible: { opacity: 1, transition: { delay: 700 }, pose: true },
+  hidden: { opacity: 0 }
+})
+
 class Controls extends Component {
   state = {
     colors: [
@@ -49,7 +54,7 @@ class Controls extends Component {
     const { shuffleBoxes } = this.props
     return (
       <header className="controls">
-        <h2>Filter boxes by colour</h2>
+        <Heading pose={this.state.mounted ? 'visible' : 'hidden'}>Filter boxes by colour</Heading>
         {this.state.colors.map(({ color, active }, i) => (
           <Btn
             del={i + 1}

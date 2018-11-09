@@ -6,9 +6,24 @@ import uuid from 'uuid'
 import Box from './Box'
 import Controls from './Controls'
 
-const Posebox = posed.div({})
-
 const colors = 'paleturquoise,aquamarine,turquoise,lightseagreen'.split(',')
+
+const getRandomPosition = amount => {
+  const sign = Math.round(Math.random() * 2) % 2 === 1 ? '-' : '+'
+  return `${sign}${Math.random() * amount}px`
+}
+
+const PoseBox = posed.div({
+  transition: {
+    type: 'spring'
+  },
+  preenter: {
+    x: () => getRandomPosition(100),
+    y: () => getRandomPosition(100),
+    opacity: 0
+  },
+  enter: { x: 0, y: 0, opacity: 1 }
+})
 
 function createBoxes() {
   const rndIndx = len => Math.floor(Math.random() * len)
@@ -42,7 +57,9 @@ class App extends Component {
   resetColors = () => this.setState({ filtered: this.state.boxes })
 
   filterBy = color => {
-    this.setState(({ boxes }) => ({ filtered: boxes.filter(box => box.color === color) }))
+    this.setState(({ boxes }) => ({
+      filtered: boxes.filter(box => box.color === color)
+    }))
   }
 
   shuffleBoxes = () => {
@@ -64,11 +81,11 @@ class App extends Component {
         />
         <div className="container">
           <div className="boxes-wrapper">
-            <PoseGroup>
+            <PoseGroup animateOnMount={true} preEnterPose={'preenter'}>
               {this.state.filtered.map(({ id, color }) => (
-                <Posebox key={id} className="box-container">
+                <PoseBox key={id}>
                   <Box color={color} id={id} deleteBox={this.deleteBox} />
-                </Posebox>
+                </PoseBox>
               ))}
             </PoseGroup>
           </div>
