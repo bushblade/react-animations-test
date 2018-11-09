@@ -1,4 +1,16 @@
 import React, { Component } from 'react'
+import posed from 'react-pose'
+
+const Btn = posed.button({
+  visible: { opacity: 1, transition: ({ del }) => ({ delay: del * 100 }) },
+  hidden: { opacity: 0 }
+})
+
+const Heading = posed.h2({
+  visible: { opacity: 1, transition: { delay: 700 }, pose: true },
+  hidden: { opacity: 0 }
+})
+
 class Controls extends Component {
   state = {
     colors: [
@@ -7,7 +19,8 @@ class Controls extends Component {
       { color: 'turquoise', active: false },
       { color: 'lightseagreen', active: false }
     ],
-    all: true
+    all: true,
+    mounted: false
   }
 
   handleColorClick = color => {
@@ -32,23 +45,41 @@ class Controls extends Component {
     }))
   }
 
+  componentDidMount() {
+    this.setState({ mounted: true })
+  }
+
   render() {
     const { handleReset, handleColorClick } = this
+    const { shuffleBoxes } = this.props
     return (
       <header className="controls">
-        <h2>Filter boxes by colour</h2>
-        {this.state.colors.map(({ color, active }) => (
-          <button
+        <Heading pose={this.state.mounted ? 'visible' : 'hidden'}>Filter boxes by colour</Heading>
+        {this.state.colors.map(({ color, active }, i) => (
+          <Btn
+            del={i + 1}
+            pose={this.state.mounted ? 'visible' : 'hidden'}
             className={`btn ${active ? 'selected' : ''}`}
             key={color}
             onClick={() => handleColorClick(color)}>
             {color}
-          </button>
+          </Btn>
         ))}
         <div className="reset">
-          <button className={`btn ${this.state.all ? 'selected' : ''}`} onClick={handleReset}>
+          <Btn
+            del={5}
+            pose={this.state.mounted ? 'visible' : 'hidden'}
+            className={`btn ${this.state.all ? 'selected' : ''}`}
+            onClick={handleReset}>
             all colors
-          </button>
+          </Btn>
+          <Btn
+            del={6}
+            pose={this.state.mounted ? 'visible' : 'hidden'}
+            className="btn"
+            onClick={shuffleBoxes}>
+            Shuffle
+          </Btn>
         </div>
       </header>
     )

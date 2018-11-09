@@ -7,6 +7,16 @@ import Controls from './Controls'
 
 const colors = 'paleturquoise,aquamarine,turquoise,lightseagreen'.split(',')
 
+const shuffle = arry => {
+  arry.forEach((x, i) => {
+    let rnd = Math.floor(Math.random() * arry.length),
+      temp = arry[i]
+    arry[i] = arry[rnd]
+    arry[rnd] = temp
+  })
+  return arry
+}
+
 function createBoxes() {
   const rndIndx = len => Math.floor(Math.random() * len)
   return Array(40)
@@ -26,6 +36,10 @@ class App extends Component {
     }))
   }
 
+  shuffleBoxes = () => {
+    this.setState(({ filtered }) => ({ filtered: shuffle(filtered) }))
+  }
+
   resetColors = () => this.setState({ filtered: this.state.boxes })
 
   filterBy = color => {
@@ -40,7 +54,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Controls colors={colors} filter={this.filterBy} reset={this.resetColors} />
+        <Controls
+          colors={colors}
+          filter={this.filterBy}
+          reset={this.resetColors}
+          shuffleBoxes={this.shuffleBoxes}
+        />
         <div className="container">
           <div className="boxes-wrapper">
             {this.state.filtered.map(({ id, color }) => (
