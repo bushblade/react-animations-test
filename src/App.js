@@ -14,15 +14,19 @@ const getRandomPosition = amount => {
 }
 
 const PoseBox = posed.div({
+  hoverable: true,
+  init: { scale: 1 },
+  hover: { scale: 0.9 },
   transition: {
     type: 'spring'
   },
   preenter: {
-    x: () => getRandomPosition(100),
-    y: () => getRandomPosition(100),
+    // x: () => getRandomPosition(100),
+    // y: () => getRandomPosition(100),
     opacity: 0
   },
-  enter: { x: 0, y: 0, opacity: 1 }
+  enter: { x: 0, y: 0, opacity: 1, delay: ({ i }) => i * 10 },
+  exit: { opacity: 0 }
 })
 
 function createBoxes() {
@@ -68,7 +72,8 @@ class App extends Component {
 
   componentDidMount() {
     const initArrays = createBoxes()
-    this.setState({ boxes: initArrays, filtered: initArrays })
+    this.setState(() => ({ boxes: initArrays, filtered: initArrays }))
+    this.shuffleBoxes()
   }
 
   render() {
@@ -82,8 +87,8 @@ class App extends Component {
         <div className="container">
           <div className="boxes-wrapper">
             <PoseGroup animateOnMount={true} preEnterPose={'preenter'}>
-              {this.state.filtered.map(({ id, color }) => (
-                <PoseBox key={id}>
+              {this.state.filtered.map(({ id, color }, i) => (
+                <PoseBox key={id} i={i}>
                   <Box color={color} id={id} deleteBox={this.deleteBox} />
                 </PoseBox>
               ))}
