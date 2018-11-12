@@ -7,6 +7,27 @@ import Controls from './Controls'
 import createBoxes from './helpers/createBoxes'
 import shuffle from './helpers/shuffle'
 
+const appear = (element, index) => {
+  let op = 0
+  let interval = setInterval(() => {
+    element.style.opacity = op
+    op >= 0.9 ? clearInterval(interval) : (op += 0.1)
+  }, 30)
+}
+
+const exit = (element, index, removeElement) => {
+  let op = 1
+  let interval = setInterval(() => {
+    element.style.opacity = op
+    if (op <= 0) {
+      clearInterval(interval)
+      removeElement()
+    } else {
+      op -= 0.1
+    }
+  }, 30)
+}
+
 class App extends Component {
   state = {
     boxes: [],
@@ -51,9 +72,9 @@ class App extends Component {
       <div className="App">
         <Controls filter={filterBy} reset={resetColors} shuffleBoxes={shuffleBoxes} />
         <div className="container">
-          <Flipper className="boxes-wrapper" element="div" flipKey={keyString} spring="gentle">
+          <Flipper className="boxes-wrapper" element="div" flipKey={keyString} spring="stiff">
             {filtered.map(({ id, color }) => (
-              <Flipped key={id} flipId={id}>
+              <Flipped key={id} flipId={id} onAppear={appear} onExit={exit}>
                 <div className="box-container">
                   <div className="box" style={{ background: color }} onClick={() => deleteBox(id)}>
                     {' '}
