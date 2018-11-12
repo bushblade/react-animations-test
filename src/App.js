@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import { Flipper, Flipped } from 'react-flip-toolkit'
+import anime from 'animejs'
 
 import Controls from './Controls'
 
@@ -8,24 +9,24 @@ import createBoxes from './helpers/createBoxes'
 import shuffle from './helpers/shuffle'
 
 const appear = (element, index) => {
-  let op = 0
-  let interval = setInterval(() => {
-    element.style.opacity = op
-    op >= 0.9 ? clearInterval(interval) : (op += 0.1)
-  }, 30)
+  anime({
+    targets: element,
+    opacity: [0, 1],
+    delay: index * 20,
+    duration: 150,
+    easing: 'easeOutSine'
+  })
 }
 
 const exit = (element, index, removeElement) => {
-  let op = 1
-  let interval = setInterval(() => {
-    element.style.opacity = op
-    if (op <= 0) {
-      clearInterval(interval)
-      removeElement()
-    } else {
-      op -= 0.1
-    }
-  }, 30)
+  anime({
+    targets: element,
+    opacity: 0,
+    duration: 150,
+    complete: removeElement,
+    delay: index * 20,
+    easing: 'easeOutSine'
+  })
 }
 
 class App extends Component {
