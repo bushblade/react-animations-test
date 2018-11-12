@@ -1,28 +1,11 @@
 import React, { Component } from 'react'
 import './App.css'
-import uuid from 'uuid'
 
 import Box from './Box'
 import Controls from './Controls'
 
-const colors = 'paleturquoise,aquamarine,turquoise,lightseagreen'.split(',')
-
-const shuffle = arry => {
-  arry.forEach((x, i) => {
-    let rnd = Math.floor(Math.random() * arry.length),
-      temp = arry[i]
-    arry[i] = arry[rnd]
-    arry[rnd] = temp
-  })
-  return arry
-}
-
-function createBoxes() {
-  const rndIndx = len => Math.floor(Math.random() * len)
-  return Array(40)
-    .fill(0)
-    .map((x, i) => ({ id: uuid(), color: colors[rndIndx(colors.length)] }))
-}
+import createBoxes from './helpers/createBoxes'
+import shuffle from './helpers/shuffle'
 
 class App extends Component {
   state = {
@@ -55,7 +38,6 @@ class App extends Component {
     return (
       <div className="App">
         <Controls
-          colors={colors}
           filter={this.filterBy}
           reset={this.resetColors}
           shuffleBoxes={this.shuffleBoxes}
