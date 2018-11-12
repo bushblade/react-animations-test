@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
+import { Flipper, Flipped } from 'react-flip-toolkit'
 
-import Box from './Box'
 import Controls from './Controls'
 
 import createBoxes from './helpers/createBoxes'
@@ -26,7 +26,9 @@ class App extends Component {
   resetColors = () => this.setState({ filtered: this.state.boxes })
 
   filterBy = color => {
-    this.setState(({ boxes }) => ({ filtered: boxes.filter(box => box.color === color) }))
+    this.setState(({ boxes }) => {
+      return { filtered: boxes.filter(box => box.color === color) }
+    })
   }
 
   componentDidMount() {
@@ -42,15 +44,24 @@ class App extends Component {
       deleteBox,
       state: { filtered }
     } = this
+
+    const keyString = filtered.map(({ id }) => id).join('')
+
     return (
       <div className="App">
         <Controls filter={filterBy} reset={resetColors} shuffleBoxes={shuffleBoxes} />
         <div className="container">
-          <div className="boxes-wrapper">
+          <Flipper className="boxes-wrapper" element="div" flipKey={keyString} spring="gentle">
             {filtered.map(({ id, color }) => (
-              <Box key={id} color={color} id={id} deleteBox={deleteBox} />
+              <Flipped key={id} flipId={id}>
+                <div className="box-container">
+                  <div className="box" style={{ background: color }} onClick={() => deleteBox(id)}>
+                    {' '}
+                  </div>
+                </div>
+              </Flipped>
             ))}
-          </div>
+          </Flipper>
         </div>
       </div>
     )
