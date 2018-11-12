@@ -35,17 +35,20 @@ class App extends Component {
   }
 
   render() {
+    const {
+      filterBy,
+      resetColors,
+      shuffleBoxes,
+      deleteBox,
+      state: { filtered }
+    } = this
     return (
       <div className="App">
-        <Controls
-          filter={this.filterBy}
-          reset={this.resetColors}
-          shuffleBoxes={this.shuffleBoxes}
-        />
+        <Controls filter={filterBy} reset={resetColors} shuffleBoxes={shuffleBoxes} />
         <div className="container">
           <div className="boxes-wrapper">
-            {this.state.filtered.map(({ id, color }) => (
-              <Box key={id} color={color} id={id} deleteBox={this.deleteBox} />
+            {filtered.map(({ id, color }) => (
+              <Box key={id} color={color} id={id} deleteBox={deleteBox} />
             ))}
           </div>
         </div>

@@ -1,15 +1,4 @@
 import React, { Component } from 'react'
-import posed from 'react-pose'
-
-const Btn = posed.button({
-  visible: { opacity: 1, transition: ({ del }) => ({ delay: del * 100 }) },
-  hidden: { opacity: 0 }
-})
-
-const Heading = posed.h2({
-  visible: { opacity: 1, transition: { delay: 700 }, pose: true },
-  hidden: { opacity: 0 }
-})
 
 class Controls extends Component {
   state = {
@@ -54,32 +43,32 @@ class Controls extends Component {
     const { shuffleBoxes } = this.props
     return (
       <header className="controls">
-        <Heading pose={this.state.mounted ? 'visible' : 'hidden'}>Filter boxes by colour</Heading>
+        <h2 pose={this.state.mounted ? 'visible' : 'hidden'}>Filter boxes by colour</h2>
         {this.state.colors.map(({ color, active }, i) => (
-          <Btn
+          <button
             del={i + 1}
             pose={this.state.mounted ? 'visible' : 'hidden'}
             className={`btn ${active ? 'selected' : ''}`}
             key={color}
             onClick={() => handleColorClick(color)}>
             {color}
-          </Btn>
+          </button>
         ))}
         <div className="reset">
-          <Btn
+          <button
             del={5}
             pose={this.state.mounted ? 'visible' : 'hidden'}
             className={`btn ${this.state.all ? 'selected' : ''}`}
             onClick={handleReset}>
             all colors
-          </Btn>
-          <Btn
+          </button>
+          <button
             del={6}
             pose={this.state.mounted ? 'visible' : 'hidden'}
             className="btn"
             onClick={shuffleBoxes}>
             Shuffle
-          </Btn>
+          </button>
         </div>
       </header>
     )
