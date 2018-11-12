@@ -50,7 +50,11 @@ class Controls extends Component {
   }
 
   render() {
-    const { handleReset, handleColorClick } = this
+    const {
+      handleReset,
+      handleColorClick,
+      state: { mounted }
+    } = this
     const { shuffleBoxes } = this.props
     return (
       <header className="controls">
@@ -58,7 +62,7 @@ class Controls extends Component {
         {this.state.colors.map(({ color, active }, i) => (
           <Btn
             del={i + 1}
-            pose={this.state.mounted ? 'visible' : 'hidden'}
+            pose={mounted ? 'visible' : 'hidden'}
             className={`btn ${active ? 'selected' : ''}`}
             key={color}
             onClick={() => handleColorClick(color)}>
@@ -68,16 +72,12 @@ class Controls extends Component {
         <div className="reset">
           <Btn
             del={5}
-            pose={this.state.mounted ? 'visible' : 'hidden'}
+            pose={mounted ? 'visible' : 'hidden'}
             className={`btn ${this.state.all ? 'selected' : ''}`}
             onClick={handleReset}>
             all colors
           </Btn>
-          <Btn
-            del={6}
-            pose={this.state.mounted ? 'visible' : 'hidden'}
-            className="btn"
-            onClick={shuffleBoxes}>
+          <Btn del={6} pose={mounted ? 'visible' : 'hidden'} className="btn" onClick={shuffleBoxes}>
             Shuffle
           </Btn>
         </div>
