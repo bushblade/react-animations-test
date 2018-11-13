@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Flipper, Flipped } from 'react-flip-toolkit'
 
 class Controls extends Component {
   state = {
@@ -9,8 +8,7 @@ class Controls extends Component {
       { color: 'turquoise', active: false },
       { color: 'lightseagreen', active: false }
     ],
-    all: true,
-    mounted: false
+    all: true
   }
 
   handleColorClick = color => {
@@ -35,10 +33,6 @@ class Controls extends Component {
     }))
   }
 
-  componentDidMount() {
-    this.setState({ mounted: true })
-  }
-
   render() {
     const {
       handleReset,
@@ -47,14 +41,10 @@ class Controls extends Component {
     } = this
     const { shuffleBoxes } = this.props
     return (
-      <Flipper element="header" className="controls" flipKey={mounted}>
-        <Flipped flipId="heading">
-          <h2 className={mounted ? 'heading-enter' : 'heading-hidden'}>Filter boxes by colour</h2>
-        </Flipped>
+      <header className="controls">
+        <h2>Filter boxes by colour</h2>
         {colors.map(({ color, active }, i) => (
           <button
-            del={i + 1}
-            pose={this.state.mounted ? 'visible' : 'hidden'}
             className={`btn ${active ? 'selected' : ''}`}
             key={color}
             onClick={() => handleColorClick(color)}>
@@ -62,22 +52,14 @@ class Controls extends Component {
           </button>
         ))}
         <div className="reset">
-          <button
-            del={5}
-            pose={this.state.mounted ? 'visible' : 'hidden'}
-            className={`btn ${this.state.all ? 'selected' : ''}`}
-            onClick={handleReset}>
+          <button className={`btn ${this.state.all ? 'selected' : ''}`} onClick={handleReset}>
             all colors
           </button>
-          <button
-            del={6}
-            pose={this.state.mounted ? 'visible' : 'hidden'}
-            className="btn"
-            onClick={shuffleBoxes}>
+          <button className="btn" onClick={shuffleBoxes}>
             Shuffle
           </button>
         </div>
-      </Flipper>
+      </header>
     )
   }
 }
