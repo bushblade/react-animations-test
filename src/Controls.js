@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Flipper, Flipped } from 'react-flip-toolkit'
 
 class Controls extends Component {
   state = {
@@ -39,12 +40,18 @@ class Controls extends Component {
   }
 
   render() {
-    const { handleReset, handleColorClick } = this
+    const {
+      handleReset,
+      handleColorClick,
+      state: { mounted, colors }
+    } = this
     const { shuffleBoxes } = this.props
     return (
-      <header className="controls">
-        <h2 pose={this.state.mounted ? 'visible' : 'hidden'}>Filter boxes by colour</h2>
-        {this.state.colors.map(({ color, active }, i) => (
+      <Flipper element="header" className="controls" flipKey={mounted}>
+        <Flipped flipId="heading">
+          <h2 className={mounted ? 'heading-enter' : 'heading-hidden'}>Filter boxes by colour</h2>
+        </Flipped>
+        {colors.map(({ color, active }, i) => (
           <button
             del={i + 1}
             pose={this.state.mounted ? 'visible' : 'hidden'}
@@ -70,7 +77,7 @@ class Controls extends Component {
             Shuffle
           </button>
         </div>
-      </header>
+      </Flipper>
     )
   }
 }

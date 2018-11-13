@@ -76,3 +76,11 @@ body {
   transform: scale(0.95);
   background-color: black;
 }
+
+.heading-enter {
+  opacity: 1;
+}
+
+.heading-hidden {
+  opacity: 0;
+}

@@ -1,32 +1,23 @@
 import React, { Component } from 'react'
 import './App.css'
-import { Flipper, Flipped } from 'react-flip-toolkit'
-import anime from 'animejs'
+import { Flipper } from 'react-flip-toolkit'
 
 import Controls from './Controls'
+import Box from './Box'
 
 import createBoxes from './helpers/createBoxes'
 import shuffle from './helpers/shuffle'
 
-const appear = (element, index) => {
-  anime({
-    targets: element,
-    opacity: [0, 1],
-    delay: index * 20,
-    duration: 150,
-    easing: 'easeOutSine'
-  })
-}
-
-const exit = (element, index, removeElement) => {
-  anime({
-    targets: element,
-    opacity: 0,
-    duration: 150,
-    complete: removeElement,
-    delay: index * 20,
-    easing: 'easeOutSine'
-  })
+const exitThenFlipThenEnter = ({
+  hideEnteringElements,
+  animateEnteringElements,
+  animateExitingElements,
+  animateFlippedElements
+}) => {
+  hideEnteringElements()
+  animateExitingElements()
+    .then(animateFlippedElements)
+    .then(animateEnteringElements)
 }
 
 class App extends Component {
@@ -63,7 +54,6 @@ class App extends Component {
       filterBy,
       resetColors,
       shuffleBoxes,
-      deleteBox,
       state: { filtered }
     } = this
 
@@ -73,15 +63,14 @@ class App extends Component {
       <div className="App">
         <Controls filter={filterBy} reset={resetColors} shuffleBoxes={shuffleBoxes} />
         <div className="container">
-          <Flipper className="boxes-wrapper" element="div" flipKey={keyString} spring="stiff">
+          <Flipper
+            className="boxes-wrapper"
+            element="div"
+            flipKey={keyString}
+            spring="stiff"
+            handleEnterUpdateDelete={exitThenFlipThenEnter}>
             {filtered.map(({ id, color }) => (
-              <Flipped key={id} flipId={id} onAppear={appear} onExit={exit}>
-                <div className="box-container">
-                  <div className="box" style={{ background: color }} onClick={() => deleteBox(id)}>
-                    {' '}
-                  </div>
-                </div>
-              </Flipped>
+              <Box id={id} color={color} deleteBox={this.deleteBox} key={`key${id}`} />
             ))}
           </Flipper>
         </div>
