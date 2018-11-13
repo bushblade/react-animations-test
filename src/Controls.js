@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Spring, Transition } from 'react-spring'
 
 class Controls extends Component {
   state = {
@@ -40,55 +39,27 @@ class Controls extends Component {
       handleColorClick,
       state: { colors }
     } = this
+
     const { shuffleBoxes } = this.props
+
     return (
       <header className="controls">
-        <Spring from={{ opacity: 0 }} to={{ opacity: 1 }} config={{ delay: 400 }}>
-          {props => <h2 style={props}>Filter boxes by colour</h2>}
-        </Spring>
-
-        <Transition
-          items={colors}
-          keys={item => item.color}
-          from={{ opacity: 0, transform: 'translate3d(0,-40px,0)' }}
-          enter={{ opacity: 1, transform: 'translate3d(0,0px,0)' }}
-          trail={100}>
-          {({ color, active }) => props => (
-            <button
-              style={props}
-              className={`btn ${active ? 'selected' : ''}`}
-              key={color}
-              onClick={() => handleColorClick(color)}>
-              {color}
-            </button>
-          )}
-        </Transition>
-
+        <h2>Filter boxes by colour</h2>
+        {colors.map(({ color, active }) => (
+          <button
+            className={`btn ${active ? 'selected' : ''}`}
+            key={color}
+            onClick={() => handleColorClick(color)}>
+            {color}
+          </button>
+        ))}
         <div className="reset">
-          <Spring
-            from={{ opacity: 0, transform: 'translateX(-50px)' }}
-            to={{ opacity: 1, transform: 'translateX(0)' }}
-            config={{ delay: 600 }}>
-            {props => (
-              <button
-                className={`btn ${this.state.all ? 'selected' : ''}`}
-                style={props}
-                onClick={handleReset}>
-                all colors
-              </button>
-            )}
-          </Spring>
-
-          <Spring
-            from={{ opacity: 0, transform: 'translateX(50px)' }}
-            to={{ opacity: 1, transform: 'translateX(0)' }}
-            config={{ delay: 500 }}>
-            {props => (
-              <button className="btn" onClick={shuffleBoxes} style={props}>
-                Shuffle
-              </button>
-            )}
-          </Spring>
+          <button className={`btn ${this.state.all ? 'selected' : ''}`} onClick={handleReset}>
+            all colors
+          </button>
+          <button className="btn" onClick={shuffleBoxes}>
+            Shuffle
+          </button>
         </div>
       </header>
     )
