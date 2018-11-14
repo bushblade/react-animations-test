@@ -52,7 +52,7 @@ class Controls extends Component {
             key={color}
             onClick={() => handleColorClick(color)}>
             {color}
-          </Btn>
+          </button>
         ))}
         <div className="reset">
           <button

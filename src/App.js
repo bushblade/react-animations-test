@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import posed, { PoseGroup } from 'react-pose'
 import './App.css'
 
 import Box from './Box'
