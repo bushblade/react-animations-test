@@ -1,19 +1,12 @@
 import React, { Component } from 'react'
 import posed, { PoseGroup } from 'react-pose'
 import './App.css'
-import shuffle from './helpers/shuffle'
-import createBoxes from './helpers/createBoxes'
 
 import Box from './Box'
 import Controls from './Controls'
 
-const PoseBox = posed.div({
-  preenter: {
-    opacity: 0
-  },
-  enter: { opacity: 1, delay: ({ i }) => i * 5 },
-  exit: { opacity: 0 }
-})
+import createBoxes from './helpers/createBoxes'
+import shuffle from './helpers/shuffle'
 
 class App extends Component {
   state = {
@@ -25,6 +18,10 @@ class App extends Component {
     this.setState(({ filtered }) => ({
       filtered: filtered.filter(box => box.id !== id)
     }))
+  }
+
+  shuffleBoxes = () => {
+    this.setState(({ filtered }) => ({ filtered: shuffle(filtered) }))
   }
 
   resetColors = () => this.setState({ filtered: this.state.boxes })
@@ -59,13 +56,9 @@ class App extends Component {
         <Controls filter={filterBy} reset={resetColors} shuffleBoxes={shuffleBoxes} />
         <div className="container">
           <div className="boxes-wrapper">
-            <PoseGroup animateOnMount={true} preEnterPose={'preenter'}>
-              {filtered.map(({ id, color }, i) => (
-                <PoseBox key={id} i={i}>
-                  <Box color={color} id={id} deleteBox={deleteBox} />
-                </PoseBox>
-              ))}
-            </PoseGroup>
+            {filtered.map(({ id, color }) => (
+              <Box key={id} color={color} id={id} deleteBox={deleteBox} />
+            ))}
           </div>
         </div>
       </div>
