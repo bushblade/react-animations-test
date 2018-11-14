@@ -86,24 +86,25 @@ class Controls extends Component {
       <header className="controls">
         <h2 ref="heading">Filter boxes by colour</h2>
         {colors.map(({ color, active }) => (
-          <button
-            className={`btn ${active ? 'selected' : ''}`}
-            key={color}
-            ref={`${color}-btn`}
-            onClick={() => handleColorClick(color)}>
-            {color}
-          </button>
+          <div className="btn-container" key={color} ref={`${color}-btn`}>
+            <button
+              className={`btn ${active ? 'selected' : ''}`}
+              onClick={() => handleColorClick(color)}>
+              {color}
+            </button>
+          </div>
         ))}
         <div className="reset">
-          <button
-            className={`btn ${this.state.all ? 'selected' : ''}`}
-            onClick={handleReset}
-            ref="all-colors-btn">
-            all colors
-          </button>
-          <button className="btn" onClick={shuffleBoxes} ref="shuffle-btn">
-            Shuffle
-          </button>
+          <div className="btn-container" ref="all-colors-btn">
+            <button className={`btn ${this.state.all ? 'selected' : ''}`} onClick={handleReset}>
+              all colors
+            </button>
+          </div>
+          <div className="btn-container" ref="shuffle-btn">
+            <button className="btn" onClick={shuffleBoxes}>
+              Shuffle
+            </button>
+          </div>
         </div>
       </header>
     )

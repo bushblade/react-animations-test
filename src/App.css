@@ -56,6 +56,9 @@ body {
 .controls h2 {
   color: lightcyan;
 }
+.btn-container {
+  display: inline-block;
+}
 
 .btn {
   margin: 0.5rem;
@@ -68,7 +71,7 @@ body {
   text-transform: uppercase;
   outline: none;
   box-shadow: 0 2px 12px 4px rgba(0, 0, 0, 0.1);
-  /* transition: all 0.1s ease-in-out; */
+  transition: all 0.1s ease-in-out;
   cursor: pointer;
 }
 
