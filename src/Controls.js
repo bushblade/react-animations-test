@@ -84,7 +84,7 @@ class Controls extends Component {
 
     return (
       <header className="controls">
-        <h2 ref="heading">Filter boxes by colour</h2>
+        <h2 ref="heading">react-flip-toolkit and animeJS</h2>
         {colors.map(({ color, active }) => (
           <div className="btn-container" key={color} ref={`${color}-btn`}>
             <button
