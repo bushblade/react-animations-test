@@ -6,13 +6,13 @@ const appear = (element, index) => {
   anime({
     targets: element,
     opacity: [0, 1],
-    rotate: { value: '1turn', duration: 1000 },
-    // translateY: [-80, 0],
+    // rotate: { value: '1turn', duration: 1000 },
+    translateY: [-100, 0],
     delay: index * 20,
-    duration: 300,
+    duration: 500,
     // easing: 'easeOutSine',
-    easing: 'easeOutElastic',
-    elasciticity: 1000
+    easing: 'easeOutElastic'
+    // elasticity: 1000
   })
 }
 
