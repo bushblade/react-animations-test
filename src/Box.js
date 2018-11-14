@@ -6,8 +6,8 @@ const appear = (element, index) => {
   anime({
     targets: element,
     opacity: [0, 1],
-    // rotate: [-359, 0],
-    translateY: [-80, 0],
+    rotate: { value: '1turn', duration: 1000 },
+    // translateY: [-80, 0],
     delay: index * 20,
     duration: 300,
     // easing: 'easeOutSine',
@@ -18,11 +18,11 @@ const appear = (element, index) => {
 
 const exit = (element, index, removeElement) => {
   anime({
-    transformOrigin: '0 0',
+    transformOrigin: { value: '50% 50% 0', duration: 0 },
     targets: element,
     opacity: 0,
-    duration: 200,
-    // rotate: [0, -359],
+    duration: 500,
+    rotate: '1turn',
     complete: removeElement,
     delay: index * 20,
     easing: 'easeOutSine'

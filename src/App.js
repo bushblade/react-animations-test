@@ -68,6 +68,7 @@ class App extends Component {
             element="div"
             flipKey={keyString}
             spring="stiff"
+            applyTransformOrigin={true}
             handleEnterUpdateDelete={exitThenFlipThenEnter}>
             {filtered.map(({ id, color }) => (
               <Box id={id} color={color} deleteBox={this.deleteBox} key={`key${id}`} />
