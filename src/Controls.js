@@ -58,7 +58,7 @@ class Controls extends Component {
     const { shuffleBoxes } = this.props
     return (
       <header className="controls">
-        <Heading pose={this.state.mounted ? 'visible' : 'hidden'}>Filter boxes by colour</Heading>
+        <Heading pose={this.state.mounted ? 'visible' : 'hidden'}>react-pose</Heading>
         {this.state.colors.map(({ color, active }, i) => (
           <Btn
             del={i + 1}
