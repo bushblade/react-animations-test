@@ -43,7 +43,7 @@ class Controls extends Component {
     const { shuffleBoxes } = this.props
     return (
       <header className="controls">
-        <h2 pose={this.state.mounted ? 'visible' : 'hidden'}>Filter boxes by colour</h2>
+        <h2 pose={this.state.mounted ? 'visible' : 'hidden'}>react-spring</h2>
         {this.state.colors.map(({ color, active }, i) => (
           <button
             del={i + 1}
