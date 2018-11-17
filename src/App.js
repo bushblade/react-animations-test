@@ -13,7 +13,10 @@ const PoseBox = posed.div({
   },
   enter: { opacity: 1, delay: ({ i }) => i * 5 },
   exit: { opacity: 0 },
-  flip: { transition: { type: 'spring', delay: 200, stiffness: 90, damping: 15, mass: 0.9 } }
+  flip: { transition: { type: 'spring', delay: 200, stiffness: 90, damping: 15, mass: 0.9 } },
+  hoverable: true,
+  init: { scale: 1 },
+  hover: { scale: 1.1 }
 })
 
 class App extends Component {
@@ -61,9 +64,9 @@ class App extends Component {
         <div className="container">
           <div className="boxes-wrapper">
             <PoseGroup animateOnMount={true} preEnterPose={'preenter'}>
-              {filtered.map(({ id, color }, i) => (
+              {filtered.map(({ id, color, number }, i) => (
                 <PoseBox key={id} i={i}>
-                  <Box color={color} id={id} deleteBox={deleteBox} />
+                  <Box color={color} id={id} deleteBox={deleteBox} number={number} />
                 </PoseBox>
               ))}
             </PoseGroup>
