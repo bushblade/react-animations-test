@@ -55,7 +55,7 @@ class Controls extends Component {
       handleColorClick,
       state: { mounted }
     } = this
-    const { shuffleBoxes } = this.props
+    const { shuffleBoxes, sortBoxes } = this.props
     return (
       <header className="controls">
         <Heading pose={this.state.mounted ? 'visible' : 'hidden'}>react-pose</Heading>
@@ -79,6 +79,9 @@ class Controls extends Component {
           </Btn>
           <Btn del={6} pose={mounted ? 'visible' : 'hidden'} className="btn" onClick={shuffleBoxes}>
             Shuffle
+          </Btn>
+          <Btn del={7} pose={mounted ? 'visible' : 'hidden'} className="btn" onClick={sortBoxes}>
+            Sort
           </Btn>
         </div>
       </header>

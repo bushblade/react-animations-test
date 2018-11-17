@@ -33,6 +33,9 @@ class App extends Component {
 
   resetColors = () => this.setState({ filtered: this.state.boxes })
 
+  sortBoxes = () =>
+    this.setState(({ filtered }) => ({ filtered: filtered.sort((a, b) => a.number - b.number) }))
+
   filterBy = color => {
     this.setState(({ boxes }) => ({
       filtered: boxes.filter(box => box.color === color)
@@ -56,11 +59,17 @@ class App extends Component {
       resetColors,
       shuffleBoxes,
       deleteBox,
+      sortBoxes,
       state: { filtered }
     } = this
     return (
       <div className="App">
-        <Controls filter={filterBy} reset={resetColors} shuffleBoxes={shuffleBoxes} />
+        <Controls
+          filter={filterBy}
+          reset={resetColors}
+          shuffleBoxes={shuffleBoxes}
+          sortBoxes={sortBoxes}
+        />
         <div className="container">
           <div className="boxes-wrapper">
             <PoseGroup animateOnMount={true} preEnterPose={'preenter'}>
