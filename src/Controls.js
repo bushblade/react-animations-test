@@ -37,8 +37,8 @@ class Controls extends Component {
   }
 
   handleReset = () => {
-    const { reset } = this.props
-    reset()
+    const { all } = this.props
+    all()
     this.setState(({ colors, all }) => ({
       colors: colors.map(({ color }) => ({ color, active: false })),
       all: true

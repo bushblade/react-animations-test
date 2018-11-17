@@ -31,7 +31,7 @@ class App extends Component {
     }))
   }
 
-  resetColors = () => this.setState({ filtered: this.state.boxes })
+  allColors = () => this.setState({ filtered: this.state.boxes })
 
   sortBoxes = () =>
     this.setState(({ filtered }) => ({ filtered: filtered.sort((a, b) => a.number - b.number) }))
@@ -56,7 +56,7 @@ class App extends Component {
   render() {
     const {
       filterBy,
-      resetColors,
+      allColors,
       shuffleBoxes,
       deleteBox,
       sortBoxes,
@@ -66,7 +66,7 @@ class App extends Component {
       <div className="App">
         <Controls
           filter={filterBy}
-          reset={resetColors}
+          all={allColors}
           shuffleBoxes={shuffleBoxes}
           sortBoxes={sortBoxes}
         />
