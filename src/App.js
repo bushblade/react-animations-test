@@ -55,8 +55,8 @@ class App extends Component {
         <Controls filter={filterBy} reset={resetColors} shuffleBoxes={shuffleBoxes} />
         <div className="container">
           <div className="boxes-wrapper">
-            {filtered.map(({ id, color }) => (
-              <Box key={id} color={color} id={id} deleteBox={deleteBox} />
+            {filtered.map(({ id, color, number }) => (
+              <Box key={id} color={color} id={id} deleteBox={deleteBox} number={number} dragable />
             ))}
           </div>
         </div>
