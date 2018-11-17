@@ -12,7 +12,8 @@ const PoseBox = posed.div({
     opacity: 0
   },
   enter: { opacity: 1, delay: ({ i }) => i * 5 },
-  exit: { opacity: 0 }
+  exit: { opacity: 0 },
+  flip: { transition: { type: 'spring', delay: 200, stiffness: 90, damping: 15, mass: 0.9 } }
 })
 
 class App extends Component {
