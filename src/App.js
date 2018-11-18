@@ -33,34 +33,15 @@ class App extends Component {
     })
   }
 
-  dropBefore = targetId => {
+  dropHandler = (targetId, inc = 0) => {
     const { draggingBox, filtered } = this.state
     let indexOfTarget
     this.state.filtered.forEach(({ id }, i) => {
-      if (id === targetId) indexOfTarget = i
+      if (id === targetId) indexOfTarget = i += inc
     })
     const newFiltered = [...filtered]
     newFiltered.splice(indexOfTarget, 0, draggingBox)
-    this.setState(() => {
-      return {
-        filtered: newFiltered
-      }
-    })
-  }
-
-  dropAfter = targetId => {
-    const { draggingBox, filtered } = this.state
-    let indexOfTarget
-    this.state.filtered.forEach(({ id }, i) => {
-      if (id === targetId) indexOfTarget = i += 1
-    })
-    const newFiltered = [...filtered]
-    newFiltered.splice(indexOfTarget, 0, draggingBox)
-    this.setState(() => {
-      return {
-        filtered: newFiltered
-      }
-    })
+    this.setState({ filtered: newFiltered })
   }
 
   deleteBox = id => {
@@ -99,8 +80,7 @@ class App extends Component {
       deleteBox,
       sortBoxes,
       dragBox,
-      dropBefore,
-      dropAfter,
+      dropHandler,
       state: { filtered, draggingBox }
     } = this
     return (
@@ -123,8 +103,7 @@ class App extends Component {
                     number={number}
                     dragBox={dragBox}
                     draggingBox={draggingBox}
-                    dropBefore={dropBefore}
-                    dropAfter={dropAfter}
+                    dropHandler={dropHandler}
                   />
                 </PoseBox>
               ))}

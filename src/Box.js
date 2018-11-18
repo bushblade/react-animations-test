@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 class Box extends Component {
   render() {
-    const { color, id, deleteBox, number, dragBox, draggingBox, dropBefore, dropAfter } = this.props
+    const { color, id, deleteBox, number, dragBox, dropHandler } = this.props
     return (
       <div
         className="box-container"
@@ -19,7 +19,7 @@ class Box extends Component {
             onDragOver={e => e.preventDefault()}
             onDrop={e => {
               e.preventDefault()
-              dropBefore(id)
+              dropHandler(id)
             }}
           />
           <div
@@ -27,7 +27,7 @@ class Box extends Component {
             onDragOver={e => e.preventDefault()}
             onDrop={e => {
               e.preventDefault()
-              dropAfter(id)
+              dropHandler(id, 1)
             }}
           />
         </div>
