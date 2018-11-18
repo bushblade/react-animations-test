@@ -33,7 +33,31 @@ body {
 
 .box-container {
   padding: 0.5rem;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.drop-zone {
+  position: absolute;
+  width: 63px;
+  height: 63px;
+}
+
+.zone-a,
+.zone-b {
   display: inline-block;
+  width: 50%;
+  height: 100%;
+}
+
+.zone-a {
+  background: rgba(255, 0, 0, 0.466);
+}
+
+.zone-b {
+  background: rgba(0, 0, 255, 0.377);
 }
 
 .box {

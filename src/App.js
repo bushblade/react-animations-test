@@ -23,13 +23,44 @@ class App extends Component {
   state = {
     boxes: [],
     filtered: [],
-    dragBox: null,
-    dragMode: false
+    draggingBox: null
   }
 
   dragBox = box => {
-    console.log(box)
-    this.setState({ dragBox: box, dragMode: true })
+    this.deleteBox(box.id)
+    this.setState(({ filtered }) => {
+      return { draggingBox: box }
+    })
+  }
+
+  dropBefore = targetId => {
+    const { draggingBox, filtered } = this.state
+    let indexOfTarget
+    this.state.filtered.forEach(({ id }, i) => {
+      if (id === targetId) indexOfTarget = i
+    })
+    const newFiltered = [...filtered]
+    newFiltered.splice(indexOfTarget, 0, draggingBox)
+    this.setState(() => {
+      return {
+        filtered: newFiltered
+      }
+    })
+  }
+
+  dropAfter = targetId => {
+    const { draggingBox, filtered } = this.state
+    let indexOfTarget
+    this.state.filtered.forEach(({ id }, i) => {
+      if (id === targetId) indexOfTarget = i += 1
+    })
+    const newFiltered = [...filtered]
+    newFiltered.splice(indexOfTarget, 0, draggingBox)
+    this.setState(() => {
+      return {
+        filtered: newFiltered
+      }
+    })
   }
 
   deleteBox = id => {
@@ -68,7 +99,9 @@ class App extends Component {
       deleteBox,
       sortBoxes,
       dragBox,
-      state: { filtered, dragMode }
+      dropBefore,
+      dropAfter,
+      state: { filtered, draggingBox }
     } = this
     return (
       <div className="App">
@@ -89,7 +122,9 @@ class App extends Component {
                     deleteBox={deleteBox}
                     number={number}
                     dragBox={dragBox}
-                    dragMode={dragMode}
+                    draggingBox={draggingBox}
+                    dropBefore={dropBefore}
+                    dropAfter={dropAfter}
                   />
                 </PoseBox>
               ))}

@@ -1,10 +1,12 @@
 import React from 'react'
 
-const DropZone = props => {
+const DropZone = ({ setDragMode }) => {
   return (
-    <div className="box-container">
-      <div className="box DropZone" />
-    </div>
+    <div
+      className="drop-zone"
+      onDragEnter={() => setDragMode(true)}
+      onDragLeave={setDragMode(false)}
+    />
   )
 }
 
