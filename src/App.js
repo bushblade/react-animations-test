@@ -22,7 +22,14 @@ const PoseBox = posed.div({
 class App extends Component {
   state = {
     boxes: [],
-    filtered: []
+    filtered: [],
+    dragBox: null,
+    dragMode: false
+  }
+
+  dragBox = box => {
+    console.log(box)
+    this.setState({ dragBox: box, dragMode: true })
   }
 
   deleteBox = id => {
@@ -60,7 +67,8 @@ class App extends Component {
       shuffleBoxes,
       deleteBox,
       sortBoxes,
-      state: { filtered }
+      dragBox,
+      state: { filtered, dragMode }
     } = this
     return (
       <div className="App">
@@ -75,7 +83,14 @@ class App extends Component {
             <PoseGroup animateOnMount={true} preEnterPose={'preenter'}>
               {filtered.map(({ id, color, number }, i) => (
                 <PoseBox key={id} i={i}>
-                  <Box color={color} id={id} deleteBox={deleteBox} number={number} />
+                  <Box
+                    color={color}
+                    id={id}
+                    deleteBox={deleteBox}
+                    number={number}
+                    dragBox={dragBox}
+                    dragMode={dragMode}
+                  />
                 </PoseBox>
               ))}
             </PoseGroup>

@@ -33,6 +33,7 @@ body {
 
 .box-container {
   padding: 0.5rem;
+  display: inline-block;
 }
 
 .box {
