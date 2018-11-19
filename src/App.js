@@ -13,7 +13,15 @@ const PoseBox = posed.div({
   },
   enter: { opacity: 1, delay: ({ i }) => i * 5 },
   exit: { opacity: 0 },
-  flip: { transition: { type: 'spring', delay: 200, stiffness: 90, damping: 15, mass: 0.9 } },
+  flip: {
+    transition: ({ fDelay }) => ({
+      type: 'spring',
+      delay: fDelay,
+      stiffness: 90,
+      damping: 15,
+      mass: 0.9
+    })
+  },
   hoverable: true,
   init: { scale: 1 },
   hover: { scale: 1.1 }
@@ -22,28 +30,34 @@ const PoseBox = posed.div({
 class App extends Component {
   state = {
     boxes: [],
-    filtered: []
+    filtered: [],
+    fDelay: 0
   }
 
   deleteBox = id => {
     this.setState(({ filtered }) => ({
-      filtered: filtered.filter(box => box.id !== id)
+      filtered: filtered.filter(box => box.id !== id),
+      fDelay: 300
     }))
   }
 
-  allColors = () => this.setState({ filtered: this.state.boxes })
+  allColors = () => this.setState({ filtered: this.state.boxes, fDelay: 300 })
 
   sortBoxes = () =>
-    this.setState(({ filtered }) => ({ filtered: filtered.sort((a, b) => a.number - b.number) }))
+    this.setState(({ filtered }) => ({
+      filtered: filtered.sort((a, b) => a.number - b.number),
+      fDelay: 0
+    }))
 
   filterBy = color => {
     this.setState(({ boxes }) => ({
-      filtered: boxes.filter(box => box.color === color)
+      filtered: boxes.filter(box => box.color === color),
+      fDelay: 300
     }))
   }
 
   shuffleBoxes = () => {
-    this.setState(({ filtered }) => ({ filtered: shuffle(filtered) }))
+    this.setState(({ filtered }) => ({ filtered: shuffle(filtered), fDelay: 0 }))
   }
 
   componentDidMount() {
@@ -60,7 +74,7 @@ class App extends Component {
       shuffleBoxes,
       deleteBox,
       sortBoxes,
-      state: { filtered }
+      state: { filtered, fDelay }
     } = this
     return (
       <div className="App">
@@ -74,7 +88,7 @@ class App extends Component {
           <div className="boxes-wrapper">
             <PoseGroup animateOnMount={true} preEnterPose={'preenter'}>
               {filtered.map(({ id, color, number }, i) => (
-                <PoseBox key={id} i={i}>
+                <PoseBox key={id} i={i} fDelay={fDelay}>
                   <Box color={color} id={id} deleteBox={deleteBox} number={number} />
                 </PoseBox>
               ))}
