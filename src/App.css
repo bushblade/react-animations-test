@@ -72,14 +72,12 @@ body {
   font-weight: bold;
   text-transform: uppercase;
   outline: none;
-  box-shadow: 0 2px 12px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.1s ease-in-out;
   cursor: pointer;
 }
 
-.btn:hover {
+/* .btn:hover {
   transform: scale(1.08);
-}
+} */
 
 .selected {
   transform: scale(0.95);

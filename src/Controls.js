@@ -3,7 +3,23 @@ import posed from 'react-pose'
 
 const Btn = posed.button({
   visible: { opacity: 1, transition: ({ del }) => ({ delay: del * 100 }) },
-  hidden: { opacity: 0 }
+  hidden: { opacity: 0 },
+  hoverable: true,
+  pressable: true,
+  init: {
+    scale: 1,
+    boxShadow: '0 2px 12px 4px rgba(0, 0, 0, 0.12)'
+  },
+  hover: {
+    scale: 1.08,
+    transition: { duration: 200 },
+    boxShadow: '0 2px 12px 4px rgba(0, 0, 0, 0.3)'
+  },
+  press: {
+    scale: 1.05,
+    transition: { duration: 200 },
+    boxShadow: '0 2px 12px 4px rgba(0, 0, 0, 0.2)'
+  }
 })
 
 const Heading = posed.h2({
