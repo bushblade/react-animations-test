@@ -69,7 +69,7 @@ class Controls extends Component {
     const {
       handleReset,
       handleColorClick,
-      state: { mounted }
+      state: { mounted, all }
     } = this
     const { shuffleBoxes, sortBoxes } = this.props
     return (
@@ -89,7 +89,7 @@ class Controls extends Component {
           <Btn
             del={5}
             pose={mounted ? 'visible' : 'hidden'}
-            className={`btn ${this.state.all ? 'selected' : ''}`}
+            className={`btn ${all ? 'selected' : ''}`}
             onClick={handleReset}>
             all colors
           </Btn>

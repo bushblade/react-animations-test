@@ -21,10 +21,7 @@ const PoseBox = posed.div({
       damping: 15,
       mass: 0.9
     })
-  },
-  hoverable: true,
-  init: { scale: 1 },
-  hover: { scale: 1.1 }
+  }
 })
 
 class App extends Component {
