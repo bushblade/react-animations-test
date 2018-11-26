@@ -63,7 +63,7 @@ const App = () => {
   return (
     <div className="App">
       <Controls
-        filter={filterBy}
+        filterBy={filterBy}
         allBoxes={allBoxes}
         shuffleBoxes={shuffleBoxes}
         sortBoxes={sortBoxes}

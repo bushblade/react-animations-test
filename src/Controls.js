@@ -27,7 +27,7 @@ const Heading = posed.h2({
   hidden: { opacity: 0 }
 })
 
-function Controls({ shuffleBoxes, sortBoxes, filter, allBoxes }) {
+function Controls({ shuffleBoxes, sortBoxes, filterBy, allBoxes }) {
   const [colors, setColors] = useState([
     { color: 'paleturquoise', active: false },
     { color: 'aquamarine', active: false },
@@ -40,7 +40,7 @@ function Controls({ shuffleBoxes, sortBoxes, filter, allBoxes }) {
   const [mounted, setMounted] = false
 
   const handleColorClick = color => {
-    filter(color)
+    filterBy(color)
     setColors(
       colors.map(col => {
         return col.color === color
