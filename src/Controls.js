@@ -27,17 +27,19 @@ const Heading = posed.h2({
   hidden: { opacity: 0 }
 })
 
+const initColors = [
+  { color: 'paleturquoise', active: false },
+  { color: 'aquamarine', active: false },
+  { color: 'turquoise', active: false },
+  { color: 'lightseagreen', active: false }
+]
+
 function Controls({ shuffleBoxes, sortBoxes, filterBy, allBoxes }) {
-  const [colors, setColors] = useState([
-    { color: 'paleturquoise', active: false },
-    { color: 'aquamarine', active: false },
-    { color: 'turquoise', active: false },
-    { color: 'lightseagreen', active: false }
-  ])
+  const [colors, setColors] = useState(initColors)
 
   const [allColors, setAllColors] = useState(true)
 
-  const [mounted, setMounted] = false
+  const [mounted, setMounted] = useState(false)
 
   const handleColorClick = color => {
     filterBy(color)
@@ -57,9 +59,7 @@ function Controls({ shuffleBoxes, sortBoxes, filterBy, allBoxes }) {
     setAllColors(true)
   }
 
-  useEffect(() => {
-    setMounted(true)
-  })
+  useEffect(() => setMounted(true))
 
   const colorButtons = colors.map(({ color, active }, i) => {
     return (

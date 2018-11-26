@@ -25,8 +25,9 @@ const PoseBox = posed.div({
 })
 
 const App = () => {
-  const [boxes, setBoxes] = useState([])
-  const [filtered, setFiltered] = useState([])
+  const initArrays = createBoxes()
+  const [boxes, setBoxes] = useState(initArrays)
+  const [filtered, setFiltered] = useState(initArrays)
   const [fDelay, setFdelay] = useState(0)
 
   const deleteBox = id => {
@@ -54,11 +55,10 @@ const App = () => {
     setFdelay(0)
   }
 
-  useEffect(() => {
-    const initArrays = createBoxes()
-    setFiltered(initArrays)
-    setBoxes(initArrays)
-  })
+  // useEffect(() => {
+  //   setFiltered(initArrays)
+  //   setBoxes(initArrays)
+  // })
 
   return (
     <div className="App">
