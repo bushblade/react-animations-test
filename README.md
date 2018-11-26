@@ -22,6 +22,6 @@ After a good play about with these libraries I have found since react-pose has b
 
 Pose for me has the best documentation of the three and has the most features. There is a pretty good (though a little quiet) community for the project on [Spectrum](https://spectrum.chat/popmotion). I issued a bug report early on in usage and found the developers very quick to respond and fix the issue.
 
-Spring gets a little complex beyond simple useage and I found it can be pretty buggy, also unless I am missing it, there is no [FLIP](https://css-tricks.com/animating-layouts-with-the-flip-technique/) technique used. So its not great for list reordering/shuffling etc.
+Spring gets a little complex beyond simple useage and I found it can be pretty buggy, also unless I am missing it, there is no [FLIP](https://css-tricks.com/animating-layouts-with-the-flip-technique/) technique used. So its not great for list reordering/shuffling etc. Admitidley my example is not the best use case for react-spring.
 
 If you just need the FLIP powered reordering then react-flip-toolkit is great and simple to use, but needs addtional tooling for more. It does pair very well with animeJS though.
