@@ -59,7 +59,8 @@ function Controls({ shuffleBoxes, sortBoxes, filterBy, allBoxes }) {
     setAllColors(true)
   }
 
-  useEffect(() => setMounted(true))
+  // second argument in useEffect important to limit re-render
+  useEffect(() => setMounted(true), [mounted])
 
   const colorButtons = colors.map(({ color, active }, i) => {
     return (
