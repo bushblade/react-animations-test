@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import posed, { PoseGroup } from 'react-pose'
 import './App.css'
 import shuffle from './helpers/shuffle'
@@ -24,77 +24,63 @@ const PoseBox = posed.div({
   }
 })
 
-class App extends Component {
-  state = {
-    boxes: [],
-    filtered: [],
-    fDelay: 0
+const App = () => {
+  const [boxes, setBoxes] = useState([])
+  const [filtered, setFiltered] = useState([])
+  const [fDelay, setFdelay] = useState(0)
+
+  const deleteBox = id => {
+    setFiltered(filtered.filter(box => box.id !== id))
+    setFdelay(300)
   }
 
-  deleteBox = id => {
-    this.setState(({ filtered }) => ({
-      filtered: filtered.filter(box => box.id !== id),
-      fDelay: 300
-    }))
+  const allBoxes = () => {
+    setFiltered(boxes)
+    setFdelay(300)
   }
 
-  allColors = () => this.setState({ filtered: this.state.boxes, fDelay: 300 })
-
-  sortBoxes = () =>
-    this.setState(({ filtered }) => ({
-      filtered: filtered.sort((a, b) => a.number - b.number),
-      fDelay: 0
-    }))
-
-  filterBy = color => {
-    this.setState(({ boxes }) => ({
-      filtered: boxes.filter(box => box.color === color),
-      fDelay: 300
-    }))
+  const sortBoxes = () => {
+    setFiltered(filtered.sort((a, b) => a.number - b.number))
+    setFdelay(0)
   }
 
-  shuffleBoxes = () => {
-    this.setState(({ filtered }) => ({ filtered: shuffle(filtered), fDelay: 0 }))
+  const filterBy = color => {
+    setFiltered(boxes.filter(box => box.color === color))
+    setFdelay(300)
   }
 
-  componentDidMount() {
+  const shuffleBoxes = () => {
+    setFiltered(shuffle(filtered))
+    setFdelay(0)
+  }
+
+  useEffect(() => {
     const initArrays = createBoxes()
-    this.setState(() => {
-      return { boxes: initArrays, filtered: initArrays }
-    })
-  }
+    setFiltered(initArrays)
+    setBoxes(initArrays)
+  })
 
-  render() {
-    const {
-      filterBy,
-      allColors,
-      shuffleBoxes,
-      deleteBox,
-      sortBoxes,
-      state: { filtered, fDelay }
-    } = this
-    return (
-      <div className="App">
-        <Controls
-          filter={filterBy}
-          all={allColors}
-          shuffleBoxes={shuffleBoxes}
-          sortBoxes={sortBoxes}
-        />
-        <div className="container">
-          <div className="boxes-wrapper">
-            <PoseGroup animateOnMount={true} preEnterPose={'preenter'}>
-              {filtered.map(({ id, color, number }, i) => (
-                <PoseBox key={id} i={i} fDelay={fDelay}>
-                  <Box color={color} id={id} deleteBox={deleteBox} number={number} />
-                </PoseBox>
-              ))}
-            </PoseGroup>
-          </div>
+  return (
+    <div className="App">
+      <Controls
+        filter={filterBy}
+        allBoxes={allBoxes}
+        shuffleBoxes={shuffleBoxes}
+        sortBoxes={sortBoxes}
+      />
+      <div className="container">
+        <div className="boxes-wrapper">
+          <PoseGroup animateOnMount={true} preEnterPose={'preenter'}>
+            {filtered.map(({ id, color, number }, i) => (
+              <PoseBox key={id} i={i} fDelay={fDelay}>
+                <Box color={color} id={id} deleteBox={deleteBox} number={number} />
+              </PoseBox>
+            ))}
+          </PoseGroup>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default App
