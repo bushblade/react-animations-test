@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import posed, { PoseGroup } from 'react-pose'
 import './App.css'
 import shuffle from './helpers/shuffle'
@@ -25,8 +25,8 @@ const PoseBox = posed.div({
 })
 
 const App = () => {
-  const initArrays = createBoxes()
-  const [filtered, setFiltered] = useState(initArrays)
+  const [filtered, setFiltered] = useState([])
+  const [initBoxes, setInitBoxes] = useState(createBoxes())
   const [fDelay, setFdelay] = useState(0)
 
   const deleteBox = id => {
@@ -35,7 +35,7 @@ const App = () => {
   }
 
   const allBoxes = () => {
-    setFiltered(initArrays)
+    setFiltered(initBoxes)
     setFdelay(300)
   }
 
@@ -45,7 +45,7 @@ const App = () => {
   }
 
   const filterBy = color => {
-    setFiltered(initArrays.filter(box => box.color === color))
+    setFiltered(initBoxes.filter(box => box.color === color))
     setFdelay(300)
   }
 
@@ -53,6 +53,13 @@ const App = () => {
     setFiltered(shuffle(filtered))
     setFdelay(0)
   }
+
+  useEffect(
+    () => {
+      setFiltered(initBoxes)
+    },
+    [initBoxes]
+  )
 
   return (
     <div className="App">
